@@ -190,7 +190,7 @@ completer = Prefix (wordCompleter comp) defaultMatcher
 shell :: Repl a -> IO ()
 shell pre
   = flip evalStateT initState
-  $ evalRepl "Poly> " cmd options completer pre
+  $ evalRepl "TestLang> " cmd options completer pre
 
 -------------------------------------------------------------------------------
 -- Toplevel

@@ -26,7 +26,7 @@ type God
   ~$: -> @server.close
 
   waitFor: (c) ->
-  for msg <- c.in
-    clients.for (.send msg)
+    for msg <- c.in
+      clients.for (.send msg)
 
 main = -> God

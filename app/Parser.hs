@@ -2,7 +2,8 @@
 
 module Parser (
   parseExpr,
-  parseModule
+  parseModule,
+  Binding(..)
 ) where
 
 import Text.Megaparsec
@@ -42,7 +43,7 @@ ifthen :: Parser Expr
 ifthen = do
   reserved "if"
   cond <- expr
-  optional $ (reservedOp "then") <|> (reservedOp "=>")
+  reserved "then" <|> reserved "=>"
   tr <- expr
   reserved "else"
   fl <- expr
@@ -115,7 +116,7 @@ modl =  do
   return res
 
 parseExpr :: L.Text -> Either (ParseError Char String)  Binding
-parseExpr input = parse (contents decl) "<stdin>" $ L.unpack input
+parseExpr input = parse (contents decl) "<stdin>" $ (L.unpack input)
 
 parseModule :: L.Text -> Either (ParseError Char String) [Binding]
-parseModule input = parse modl "lol" $ L.unpack input
+parseModule input = parse modl "lol" $ (L.unpack input) ++ "\n"
